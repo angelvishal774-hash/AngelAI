@@ -24,8 +24,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Grant Execute Permission & Build APK
-      run: |
+    1 Run find -name "gradlew" -exec chmod +x {} +
+    
         GRADLE_PATH=$(find . -name "gradlew" | head -n 1)
         if [ -z "$GRADLE_PATH" ]; then
           echo "Gradlew not found! Checking directory contents:"
