@@ -26,12 +26,10 @@ jobs:
 
     - name: Build APK
       run: |
-        if [ -f "./gradlew" ]; then
-          ./gradlew assembleDebug
-        else
-          cd angel-ai-features-request*
-          ./gradlew assembleDebug
-        fi
+        FILE_PATH=$(find . -name "gradlew" -print -quit)
+        DIR_PATH=$(dirname "$FILE_PATH")
+        cd "$DIR_PATH"
+        ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
