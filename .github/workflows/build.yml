@@ -21,15 +21,20 @@ jobs:
         distribution: 'temurin'
 
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew || true
+      run: |
+        find . -name "gradlew" -exec chmod +x {} +
 
     - name: Build APK
-      run: ./gradlew assembleDebug || gradle build
+      run: |
+        PROJECT_DIR=$(find . -name "gradlew" -exec dirname {} \;)
+        cd "$PROJECT_DIR"
+        ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: AngelAI-APK
-        path: app/build/outputs/apk/debug/app-debug.apk
+        path: "**/app/build/outputs/apk/debug/app-debug.apk"
 
-  
+
+    
